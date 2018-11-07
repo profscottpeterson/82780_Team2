@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using TeamDevProject.Models;
 
 namespace TeamDevProject
 {
@@ -33,6 +35,10 @@ namespace TeamDevProject
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            var connection = @"Server=tcp:teamdevproject.database.windows.net,1433;Initial Catalog=TeamDevProject;Persist Security Info=False;User ID=teamdevadmin;Password=NWTCteamdev3;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            services.AddDbContext<TeamDevProjectContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
