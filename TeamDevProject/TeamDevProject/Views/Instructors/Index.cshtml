@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TeamDevProject.Models.Instructor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Course)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.CourseId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InstructorId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InstructorId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InstructorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
