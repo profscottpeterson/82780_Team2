@@ -4,15 +4,25 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using TeamDevProject.Models;
 
 namespace TeamDevProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly TeamDevProjectContext _context;
+
+        public HomeController(TeamDevProjectContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var teamDevProjectContext = _context.Test.Include(t => t.Course);
+            return View(await teamDevProjectContext.ToListAsync());
         }
 
         public IActionResult About()
