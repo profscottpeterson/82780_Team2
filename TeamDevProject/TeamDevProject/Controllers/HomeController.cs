@@ -25,6 +25,24 @@ namespace TeamDevProject.Controllers
             return View(await teamDevProjectContext.ToListAsync());
         }
 
+        public async Task<IActionResult> TakeTest(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var Question = await _context.TestQuestions
+                .Include(t => t.TestId)
+                .FirstOrDefaultAsync(m => m.TestId == id);
+            if (Question == null)
+            {
+                return NotFound();
+            }
+
+            return View(Question);
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

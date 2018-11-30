@@ -1,7 +1,35 @@
-﻿
+﻿@model IEnumerable<TeamDevProject.Models.TestQuestions>;
+
 @{
     ViewData["Title"] = "TakeTest";
 }
 
 <h2>TakeTest</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Question)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
