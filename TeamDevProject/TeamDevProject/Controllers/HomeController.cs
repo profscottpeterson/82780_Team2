@@ -32,15 +32,22 @@ namespace TeamDevProject.Controllers
                 return NotFound();
             }
 
-            var Question = await _context.TestQuestions
-                .Include(t => t.TestId)
-                .FirstOrDefaultAsync(m => m.TestId == id);
-            if (Question == null)
+            var questions = new List<TestQuestions>();
+
+            foreach (var q in _context.TestQuestions)
+            {
+                if(q.TestId == id)
+                {
+                    questions.Add(q);
+                }
+            }
+
+            if (questions == null)
             {
                 return NotFound();
             }
 
-            return View(Question);
+            return View(questions);
         }
 
         public IActionResult About()

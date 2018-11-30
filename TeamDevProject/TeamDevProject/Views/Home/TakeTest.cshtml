@@ -15,7 +15,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Question)
             </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Answer1)</th>
+            <th>@Html.DisplayNameFor(model => model.Answer2)</th>
+            <th>@Html.DisplayNameFor(model => model.Answer3)</th>
+            <th>@Html.DisplayNameFor(model => model.Answer4)</th>
         </tr>
     </thead>
     <tbody>
@@ -28,8 +31,21 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Question)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer3)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Answer4)
+                </td>
             </tr>
         }
+            
     </tbody>
 </table>
 
