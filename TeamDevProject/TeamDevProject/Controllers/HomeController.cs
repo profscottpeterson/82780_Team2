@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -73,6 +74,39 @@ namespace TeamDevProject.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Check(IFormCollection data)
+        {
+            int c = 0;
+            int w = 0;
+
+            double results;
+
+            foreach (var question in data)
+            {
+                foreach (var q in _context.TestQuestions)
+                {
+                    if (q.QuestionId.ToString() == question.Key)
+                    {
+                        if(q.CorrectAnswer.ToString() == question.Value)
+                        {
+                            c++;
+                            break;
+                        } else
+                        {
+                            w++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            results = c / (c + w);
+
+            return View(results);
+
         }
     }
 }
