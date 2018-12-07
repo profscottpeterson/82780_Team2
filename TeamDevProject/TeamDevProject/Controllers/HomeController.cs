@@ -14,6 +14,7 @@ namespace TeamDevProject.Controllers
     public class HomeController : Controller
     {
         private readonly TeamDevProjectContext _context;
+        public TestResults testresults = new TestResults();
 
         public HomeController(TeamDevProjectContext context)
         {
@@ -26,7 +27,7 @@ namespace TeamDevProject.Controllers
             return View(await teamDevProjectContext.ToListAsync());
         }
 
-        public async Task<IActionResult> TakeTest(int? id)
+        public async Task<IActionResult> TakeTest(int id)
         {
             if (id == null)
             {
@@ -80,32 +81,37 @@ namespace TeamDevProject.Controllers
         public async Task<IActionResult> Check(IFormCollection data)
         {
             int c = 0;
-            int w = 0;
-
-            double results;
+            int id = 0;
 
             foreach (var question in data)
             {
+                
                 foreach (var q in _context.TestQuestions)
                 {
                     if (q.QuestionId.ToString() == question.Key)
                     {
+                        id = q.TestId;
                         if(q.CorrectAnswer.ToString() == question.Value)
                         {
                             c++;
-                            break;
-                        } else
-                        {
-                            w++;
                             break;
                         }
                     }
                 }
             }
 
-            results = c / (c + w);
+            
 
-            return View(results);
+            testresults.Score = c;
+            testresults.TestId = id;
+            testresults.Answers = "";
+            testresults.StudentId = 1;
+
+            _context.TestResults.Add(testresults);
+            await _context.SaveChangesAsync();
+
+            ViewBag.results = c;
+            return View();
 
         }
     }

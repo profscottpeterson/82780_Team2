@@ -7,44 +7,16 @@
 
 
 <div class="row">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">@Html.DisplayFor(modelItem => item.Subject)</h3>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a asp-action="TakeTest" asp-route-id="@item.TestId" class="btn btn-primary">Take Test</a>
+                </div>
             </div>
-        </div>
-        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Subject)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Course)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Subject)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course.CourseId)
-                        </td>
-                        <td>
-                            <a asp-action="TakeTest" asp-route-id="@item.TestId">Take Test</a> |
-                            <a asp-action="Details" asp-route-id="@item.TestId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.TestId">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        </div>        
+    }
 </div>

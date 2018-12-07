@@ -3,7 +3,13 @@
     ViewData["Title"] = "Check";
 }
 
-<h2>Check</h2>
+<h2>Results</h2>
+@{ 
+    int Results = ViewBag.results;
+
+    <p>You got @Results.ToString() out of 10 questions right</p>
+}
+
 
 
 
