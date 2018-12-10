@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +24,7 @@ namespace TeamDevProject.Controllers
             _context = context;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var teamDevProjectContext = _context.Test.Include(t => t.Course);
@@ -100,6 +104,9 @@ namespace TeamDevProject.Controllers
                 }
             }
 
+            //var user = await UserManager.GetUserAsync(HttpContext.User);
+
+            
             
 
             testresults.Score = c;
