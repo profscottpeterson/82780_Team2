@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
@@ -17,6 +18,7 @@ namespace TeamDevProject.Controllers
     public class HomeController : Controller
     {
         private readonly TeamDevProjectContext _context;
+
         public TestResults testresults = new TestResults();
 
         public HomeController(TeamDevProjectContext context)
@@ -104,15 +106,16 @@ namespace TeamDevProject.Controllers
                 }
             }
 
-            //var user = await UserManager.GetUserAsync(HttpContext.User);
+            var ident = User.Identity as ClaimsIdentity;
+            var userID = ident.Claims.FirstOrDefault(d => d.Type == ClaimTypes.NameIdentifier)?.Value;
+
+
 
             
-            
-
             testresults.Score = c;
             testresults.TestId = id;
             testresults.Answers = "";
-            testresults.StudentId = 1;
+            testresults.StudentId = _context.Student.First(s => s.UserId == userID).StudId;
 
             _context.TestResults.Add(testresults);
             await _context.SaveChangesAsync();
